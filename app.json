@@ -1,0 +1,18 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/chatbot/chatbot",
+    "pages/calculator/calculator",
+    "pages/flavor-wheel/flavor-wheel",
+    "pages/diagnosis/diagnosis"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#6f4e37",
+    "navigationBarTitleText": "咖啡AI助手",
+    "navigationBarTextStyle": "white"
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json",
+  "lazyCodeLoading": "requiredComponents"
+}

@@ -1,0 +1,33 @@
+/**app.wxss**/
+page {
+  font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  background-color: #f8f5f2;
+  color: #3c2f2f;
+}
+
+.page-container {
+  max-width: 750rpx;
+  margin: 0 auto;
+  background-color: #fff;
+  min-height: 100vh;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.header {
+  background-color: #6f4e37;
+  color: #fff;
+  padding: 30rpx;
+  text-align: center;
+}
+
+.header-title {
+  font-size: 36rpx;
+  font-weight: 500;
+}
+
+.footer {
+  text-align: center;
+  padding: 40rpx;
+  color: #917c6f;
+  font-size: 28rpx;
+}

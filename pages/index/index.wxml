@@ -1,0 +1,40 @@
+<view class="page-container">
+  <view class="header">
+    <text class="header-title">咖啡AI助手</text>
+  </view>
+  
+  <view class="quick-ask">
+    <form bindsubmit="handleSearch">
+      <view class="search-container">
+        <input name="query" placeholder="请输入咖啡相关问题..." />
+        <button class="search-btn" form-type="submit">→</button>
+      </view>
+    </form>
+  </view>
+  
+  <view class="main-menu">
+    <navigator url="/pages/chatbot/chatbot" class="menu-item">
+      <image src="/assets/icons/chat.png" class="menu-icon"></image>
+      <text class="menu-text">智能问答</text>
+    </navigator>
+    
+    <navigator url="/pages/calculator/calculator" class="menu-item">
+      <image src="/assets/icons/calculator.png" class="menu-icon"></image>
+      <text class="menu-text">萃取计算器</text>
+    </navigator>
+    
+    <navigator url="/pages/flavor-wheel/flavor-wheel" class="menu-item">
+      <image src="/assets/icons/flavor.png" class="menu-icon"></image>
+      <text class="menu-text">风味轮分析</text>
+    </navigator>
+    
+    <navigator url="/pages/diagnosis/diagnosis" class="menu-item">
+      <image src="/assets/icons/diagnosis.png" class="menu-icon"></image>
+      <text class="menu-text">设备诊断</text>
+    </navigator>
+  </view>
+  
+  <view class="footer">
+    <text>咖啡AI助手 - 专业咖啡知识一键解答</text>
+  </view>
+</view>

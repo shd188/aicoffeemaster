@@ -1,0 +1,73 @@
+<view class="page-container">
+  <view class="header">
+    <view class="back-button" bindtap="goBack">←</view>
+    <text class="header-title">萃取计算器</text>
+  </view>
+  
+  <view class="calculator-container">
+    <view class="tab-buttons">
+      <view class="tab-button {{activeTab === 'ratio' ? 'active' : ''}}" bindtap="switchTab" data-tab="ratio">粉水比计算</view>
+      <view class="tab-button {{activeTab === 'tds' ? 'active' : ''}}" bindtap="switchTab" data-tab="tds">TDS计算</view>
+    </view>
+    
+    <form bindsubmit="calculateParams">
+      <view class="input-group">
+        <text class="label">咖啡粉量 (g)</text>
+        <input type="digit" name="coffeeAmount" placeholder="输入咖啡粉重量" value="{{coffeeAmount}}" />
+      </view>
+      
+      <view class="input-group">
+        <text class="label">目标粉水比</text>
+        <picker bindchange="ratioChange" value="{{ratioIndex}}" range="{{ratioOptions}}">
+          <view class="picker">
+            {{ratioOptions[ratioIndex]}}
+          </view>
+        </picker>
+      </view>
+      
+      <view class="input-group">
+        <text class="label">咖啡烘焙度</text>
+        <picker bindchange="roastChange" value="{{roastIndex}}" range="{{roastOptions}}">
+          <view class="picker">
+            {{roastOptions[roastIndex]}}
+          </view>
+        </picker>
+      </view>
+      
+      <view class="input-group">
+        <text class="label">冲煮方法</text>
+        <picker bindchange="methodChange" value="{{methodIndex}}" range="{{methodOptions}}">
+          <view class="picker">
+            {{methodOptions[methodIndex]}}
+          </view>
+        </picker>
+      </view>
+      
+      <button class="calculate-button" form-type="submit">计算萃取方案</button>
+    </form>
+    
+    <view class="result-container" wx:if="{{showResult}}">
+      <text class="result-title">推荐萃取方案</text>
+      
+      <view class="result-item">
+        <text class="result-label">水量:</text> {{result.waterAmount}}ml
+      </view>
+      
+      <view class="result-item">
+        <text class="result-label">研磨度:</text> {{result.grindSize}}
+      </view>
+      
+      <view class="result-item">
+        <text class="result-label">萃取时间:</text> {{result.extractionTime}}
+      </view>
+      
+      <view class="result-item">
+        <text class="result-label">水温:</text> {{result.waterTemperature}}
+      </view>
+      
+      <view class="result-item">
+        <text class="result-label">注水建议:</text> {{result.pourTips}}
+      </view>
+    </view>
+  </view>
+</view> 
