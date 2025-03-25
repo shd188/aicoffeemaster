@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>智能问答 - 咖啡AI助手</title>
+    <style>
+        body {
+            font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f5f2;
+            color: #3c2f2f;
+        }
+        .container {
+            max-width: 414px;
+            margin: 0 auto;
+            background-color: #fff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        header {
+            background-color: #6f4e37;
+            color: #fff;
+            padding: 15px;
+            text-align: center;
+            position: relative;
+        }
+        .back-button {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #fff;
+            font-size: 20px;
+        }
+        .chat-container {
+            flex-grow: 1;
+            padding: 15px;
+            overflow-y: auto;
+        }
+        .message {
+            margin-bottom: 15px;
+            max-width: 80%;
+        }
+        .user-message {
+            margin-left: auto;
+            background-color: #6f4e37;
+            color: #fff;
+            border-radius: 18px 18px 4px 18px;
+            padding: 10px 15px;
+        }
+        .bot-message {
+            margin-right: auto;
+            background-color: #e6ded3;
+            border-radius: 18px 18px 18px 4px;
+            padding: 10px 15px;
+        }
+        .input-area {
+            padding: 15px;
+            border-top: 1px solid #e6ded3;
+            display: flex;
+            align-items: center;
+        }
+        .input-area input {
+            flex-grow: 1;
+            padding: 12px 15px;
+            border: 1px solid #d9cfc1;
+            border-radius: 20px;
+            font-size: 16px;
+        }
+        .send-button {
+            margin-left: 10px;
+            background-color: #6f4e37;
+            color: #fff;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .quick-questions {
+            display: flex;
+            overflow-x: auto;
+            padding: 10px 0;
+            margin-bottom: 10px;
+        }
+        .quick-question {
+            background-color: #f2ede7;
+            padding: 8px 15px;
+            border-radius: 18px;
+            margin-right: 10px;
+            white-space: nowrap;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="back-button">←</div>
+            <h2>智能问答</h2>
+        </header>
+        
+        <div class="quick-questions">
+            <div class="quick-question">什么是手冲咖啡</div>
+            <div class="quick-question">如何选择咖啡豆</div>
+            <div class="quick-question">意式咖啡机推荐</div>
+            <div class="quick-question">最佳咖啡萃取时间</div>
+        </div>
+        
+        <div class="chat-container">
+            <div class="message bot-message">
+                您好，我是咖啡AI助手，有任何关于咖啡的问题都可以问我！
+            </div>
+            <div class="message user-message">
+                手冲咖啡的最佳粉水比是多少？
+            </div>
+            <div class="message bot-message">
+                手冲咖啡的粉水比通常在1:15至1:18之间，这取决于您喜欢的口感和使用的咖啡豆。浅烘焙咖啡通常使用1:16或1:17的比例，中烘焙可以尝试1:15至1:16，深烘焙则适合1:14至1:15的比例。此外，不同的冲煮器具也会影响最佳粉水比的选择。
+            </div>
+        </div>
+        
+        <div class="input-area">
+            <input type="text" placeholder="请输入您的问题...">
+            <button class="send-button">↑</button>
+        </div>
+    </div>
+</body>
+</html> 

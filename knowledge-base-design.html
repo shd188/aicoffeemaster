@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>咖啡AI助手 - 知识库架构设计</title>
+    <style>
+        body {
+            font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1 {
+            color: #6f4e37;
+            border-bottom: 2px solid #e6ded3;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #6f4e37;
+            margin-top: 30px;
+        }
+        h3 {
+            color: #917c6f;
+        }
+        .architecture-diagram {
+            background-color: #f8f5f2;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            margin: 20px 0;
+        }
+        code {
+            background-color: #f8f5f2;
+            padding: 2px 5px;
+            border-radius: 3px;
+            font-family: monospace;
+        }
+        pre {
+            background-color: #f8f5f2;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>咖啡AI助手 - 知识库架构设计</h1>
+    
+    <h2>1. 知识库分层结构</h2>
+    <p>咖啡领域知识库采用多层级结构，确保专业性和全面性：</p>
+    
+    <h3>1.1 基础知识层</h3>
+    <ul>
+        <li>咖啡基本概念</li>
+        <li>咖啡种类与分类</li>
+        <li>咖啡产地与风味特征</li>
+        <li>咖啡豆处理方法</li>
+        <li>咖啡烘焙程度分类</li>
+    </ul>
+    
+    <h3>1.2 专业技术层</h3>
+    <ul>
+        <li>咖啡萃取原理</li>
+        <li>各种冲煮方法详解</li>
+        <li>专业设备使用指南</li>
+        <li>萃取参数控制技术</li>
+        <li>风味评估与杯测标准</li>
+    </ul>
+    
+    <h3>1.3 问题诊断层</h3>
+    <ul>
+        <li>常见咖啡问题与解决方案</li>
+        <li>设备故障诊断与维护</li>
+        <li>萃取缺陷分析模型</li>
+        <li>风味缺陷原因分析</li>
+    </ul>
+    
+    <h3>1.4 计算模型层</h3>
+    <ul>
+        <li>萃取计算公式库</li>
+        <li>TDS与萃取率关系模型</li>
+        <li>风味轮解析模型</li>
+        <li>参数优化算法</li>
+        <li>设备诊断决策树</li>
+    </ul>
+    
+    <h2>2. 知识库数据来源</h2>
+    <ul>
+        <li>专业咖啡教材与学术论文</li>
+        <li>SCA（特种咖啡协会）标准与资料</li>
+        <li>专业咖啡师培训教程</li>
+        <li>专业咖啡杂志与期刊</li>
+        <li>咖啡师世界锦标赛资料</li>
+        <li>咖啡行业专家访谈</li>
+        <li>精选咖啡博客和视频</li>
+    </ul>
+    
+    <h2>3. 知识结构化方法</h2>
+    
+    <h3>3.1 主题关系网络</h3>
+    <p>采用知识图谱技术，建立咖啡领域概念间的关联关系，实现多维度知识连接。</p>
+    
+    <div class="architecture-diagram">
+        [咖啡知识图谱示例图]
+    </div>
+    
+    <h3>3.2 实体标准化</h3>
+    <p>对咖啡领域核心实体进行标准化处理：</p>
+    <ul>
+        <li>咖啡品种（阿拉比卡、罗布斯塔等）</li>
+        <li>处理法（水洗、日晒、蜜处理等）</li>
+        <li>风味描述词（规范化风味词汇）</li>
+        <li>产区分类（国家、地区、农场）</li>
+        <li>烘焙度量化标准（Agtron数值等）</li>
+    </ul>
+    
+    <h3>3.3 数据格式</h3>
+    <pre><code>
+{
+  "entity_id": "coffee_extraction_ratio",
+  "name": "咖啡萃取率",
+  "category": "technical_parameter",
+  "definition": "咖啡萃取率是指咖啡粉中被水溶解的固形物占比，通常用百分比表示",
+  "optimal_range": "18%-22%",
+  "influence_factors": ["研磨度", "水温", "萃取时间", "粉水比"],
+  "related_concepts": ["TDS", "咖啡浓度", "过度萃取", "萃取不足"],
+  "calculation_formula": "萃取率(%) = 咖啡TDS(%) × 咖啡液体重量 ÷ 咖啡粉重量 × 100",
+  "references": [
+    "SCA Gold Cup Standards",
+    "咖啡萃取科学（S. Rao著）"
+  ]
+}
+    </code></pre>
+    
+    <h2>4. 检索增强架构</h2>
+    
+    <h3>4.1 混合检索策略</h3>
+    <p>采用多级检索策略，结合关键词、语义和结构化查询：</p>
+    <ul>
+        <li>关键词匹配：BM25算法</li>
+        <li>语义向量检索：基于BERT衍生模型的文本嵌入</li>
+        <li>结构化查询：针对参数类问题的精确匹配</li>
+        <li>混合排序：综合以上方法的结果进行加权排序</li>
+    </ul>
+    
+    <h3>4.2 上下文优化</h3>
+    <p>利用用户对话历史和问题上下文增强检索精度：</p>
+    <ul>
+        <li>会话状态跟踪：记录当前讨论的咖啡主题</li>
+        <li>用户偏好建模：根据历史问题识别用户关注点</li>
+        <li>术语消歧：根据上下文区分同名术语（如"萃取"在不同设备中的含义）</li>
+    </ul>
+    
+    <h3>4.3 检索增强生成（RAG）流程</h3>
+    <div class="architecture-diagram">
+        [RAG流程图：用户问题 → 文档检索 → 相关知识提取 → 结合模型回答]
+    </div>
+    
+    <h2>5. 知识更新机制</h2>
+    <ul>
+        <li>定期专家审核：每季度由专业咖啡专家审核知识准确性</li>
+        <li>用户反馈整合：根据用户反馈修正错误信息</li>
+        <li>行业动态更新：跟踪咖啡行业新研究、新标准</li>
+        <li>版本控制：知识库内容变更历史记录</li>
+    </ul>
+    
+</body>
+</html>

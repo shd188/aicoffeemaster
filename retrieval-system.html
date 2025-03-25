@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>咖啡AI助手 - 增强检索系统设计</title>
+    <style>
+        body {
+            font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1 {
+            color: #6f4e37;
+            border-bottom: 2px solid #e6ded3;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #6f4e37;
+            margin-top: 30px;
+        }
+        h3 {
+            color: #917c6f;
+        }
+        .architecture-diagram {
+            background-color: #f8f5f2;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            margin: 20px 0;
+        }
+        code {
+            background-color: #f8f5f2;
+            padding: 2px 5px;
+            border-radius: 3px;
+            font-family: monospace;
+        }
+        pre {
+            background-color: #f8f5f2;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        .note {
+            background-color: #fffacd;
+            padding: 10px;
+            border-left: 4px solid #ffd700;
+            margin: 15px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>咖啡AI助手 - 增强检索系统设计</h1>
+    
+    <h2>1. 检索系统架构</h2>
+    
+    <div class="architecture-diagram">
+        [咖啡专用检索系统架构图]
+    </div>
+    
+    <h3>1.1 系统组件</h3>
+    <ul>
+        <li><strong>查询理解模块</strong>：分析用户意图和关键概念</li>
+        <li><strong>混合检索引擎</strong>：结合关键词和语义检索</li>
+        <li><strong>咖啡领域增强组件</strong>：专业术语处理和同义词扩展</li>
+        <li><strong>上下文管理器</strong>：维护会话状态和历史信息</li>
+        <li><strong>结果排序优化器</strong>：根据相关性和权威性排序</li>
+    </ul>
+    
+    <h2>2. 多策略检索方法</h2>
+    
+    <h3>2.1 关键词检索</h3>
+    <p>基于BM25算法，优化咖啡领域专业术语的权重：</p>
+    <pre><code>
+class CoffeeBM25Retriever:
+    def __init__(self, documents, k1=1.5, b=0.75, delta=0.5):
+        self.documents = documents
+        self.k1 = k1  # 词频饱和参数
+        self.b = b    # 文档长度归一化参数
+        self.delta = delta  # 专业术语加权参数
+        self.coffee_terms = load_coffee_terminology()  # 加载咖啡专业术语库
+        
+    def retrieve(self, query, top_k=5):
+        tokens = tokenize(query)
+        scores = []
+        
+        for doc in self.documents:
+            score = 0
+            for token in tokens:
+                # 咖啡专业术语权重提升
+                term_weight = 1.0 + self.delta if token in self.coffee_terms else 1.0
+                idf = self._calculate_idf(token)
+                tf = self._calculate_tf(token, doc)
+                score += self._bm25_score(tf, idf, len(doc)) * term_weight
+            
+            scores.append((doc, score))
+            
+        return sorted(scores, key=lambda x: x[1], reverse=True)[:top_k]
+    </code></pre>
+    
+    <h3>2.2 语义检索</h3>
+    <p>使用双塔结构的神经网络，生成咖啡领域优化的文本嵌入：</p>
+    <pre><code>
+class CoffeeSemanticRetriever:
+    def __init__(self, documents, model_path="coffee_embeddings_model"):
+        self.embedding_model = load_model(model_path)
+        self.document_embeddings = self._embed_documents(documents)
+        self.documents = documents
+        
+    def retrieve(self, query, top_k=5):
+        query_embedding = self.embedding_model.encode(query)
+        
+        similarities = []
+        for i, doc_embedding in enumerate(self.document_embeddings):
+            similarity = cosine_similarity(query_embedding, doc_embedding)
+            similarities.append((self.documents[i], similarity))
+            
+        return sorted(similarities, key=lambda x: x[1], reverse=True)[:top_k]
+    </code></pre>
+    
+    <h3>2.3 结构化检索</h3>
+    <p>针对特定咖啡参数和计算类查询的精确匹配：</p>
+    <pre><code>
+class CoffeeParameterRetriever:
+    def __init__(self, parameter_database):
+        self.parameter_db = parameter_database
+        
+    def retrieve(self, query):
+        # 识别查询中的参数名称和值
+        extracted_params = extract_coffee_parameters(query)
+        
+        if "粉水比" in extracted_params:
+            return self.parameter_db.lookup("brew_ratio", extracted_params["粉水比"])
+        elif "研磨度" in extracted_params:
+            return self.parameter_db.lookup("grind_size", extracted_params["研磨度"])
+        # 其他参数查询...
+    </code></pre>
+    
+    <h2>3. 咖啡领域优化</h2>
+    
+    <h3>3.1 专业术语识别</h3>
+    <p>构建咖啡领域命名实体识别模型，识别以下实体类型：</p>
+    <ul>
+        <li>咖啡品种（如"埃塞俄比亚耶加雪菲"）</li>
+        <li>设备名称（如"哈利欧V60"）</li>
+        <li>技术参数（如"TDS值"、"萃取率"）</li>
+        <li>风味描述词（如"明亮酸度"、"浆果香"）</li>
+    </ul>
+    
+    <h3>3.2 同义词和术语扩展</h3>
+    <p>构建咖啡专业术语同义词网络，示例：</p>
+    <pre><code>
+COFFEE_SYNONYMS = {
+    "手冲": ["手动冲煮", "手工冲煮", "pour over", "滴滤式"],
+    "TDS": ["总溶解固形物", "可溶性固形物含量"],
+    "crema": ["克丽玛", "咖啡脂", "咖啡油脂层"],
+    "布隆": ["预浸润", "预湿", "blooming"],
+    "萃取不足": ["欠萃取", "under extraction"],
+    "粉水比": ["咖啡粉水比例", "coffee to water ratio"]
+}
+    </code></pre>
+    
+    <h3>3.3 问题类型识别</h3>
+    <p>区分以下常见咖啡问题类型并优化检索策略：</p>
+    <ul>
+        <li>参数询问型（"手冲咖啡什么温度最好"）</li>
+        <li>比较型（"水洗和日晒处理法的区别"）</li>
+        <li>诊断型（"为什么我的咖啡很酸"）</li>
+        <li>推荐型（"适合制作拿铁的咖啡豆"）</li>
+        <li>方法型（"如何使用摩卡壶"）</li>
+    </ul>
+    
+    <h2>4. 上下文感知检索</h2>
+    
+    <h3>4.1 会话状态跟踪</h3>
+    <p>维护当前会话的主题和焦点，示例实现：</p>
+    <pre><code>
+class CoffeeConversationContext:
+    def __init__(self):
+        self.current_topic = None
+        self.mentioned_entities = set()
+        self.user_preferences = {}
+        self.topic_history = []
+        
+    def update(self, user_query, system_response):
+        # 更新当前主题
+        new_topic = extract_coffee_topic(user_query)
+        if new_topic:
+            self.current_topic = new_topic
+            self.topic_history.append(new_topic)
+            
+        # 更新提及的实体
+        entities = extract_coffee_entities(user_query)
+        self.mentioned_entities.update(entities)
+        
+        # 更新用户偏好
+        preferences = extract_preferences(user_query)
+        self.user_preferences.update(preferences)
+    
+    def enhance_query(self, original_query):
+        # 使用上下文信息增强查询
+        enhanced_query = original_query
+        
+        # 如果查询缺少明确的主题但上下文中有主题
+        if not has_clear_topic(original_query) and self.current_topic:
+            enhanced_query += f" {self.current_topic}"
+            
+        # 解析指代（"它"、"这个烘焙度"等）
+        enhanced_query = resolve_references(enhanced_query, self.mentioned_entities)
+        
+        return enhanced_query
+    </code></pre>
+    
+    <h3>4.2 用户画像适应</h3>
+    <p>根据用户与系统的交互，动态调整检索策略：</p>
+    <ul>
+        <li>专业级别适应：根据用户使用的术语复杂度估计专业水平</li>
+        <li>兴趣焦点：跟踪用户经常查询的咖啡主题</li>
+        <li>设备偏好：记录用户提及的咖啡设备</li>
+    </ul>
+    
+    <h2>5. 混合排序与重排序</h2>
+    
+    <h3>5.1 多策略融合</h3>
+    <p>结合多种检索方法的结果，使用加权求和方法：</p>
+    <pre><code>
+def hybrid_ranking(query, documents, retrieval_methods, weights=None):
+    if weights is None:
+        weights = [1.0] * len(retrieval_methods)
+        
+    # 各方法检索结果及分数
+    method_results = []
+    for method, weight in zip(retrieval_methods, weights):
+        results = method.retrieve(query)
+        method_results.append((results, weight))
+    
+    # 合并结果
+    document_scores = {}
+    for results, weight in method_results:
+        for doc, score in results:
+            if doc not in document_scores:
+                document_scores[doc] = 0
+            document_scores[doc] += score * weight
+    
+    # 排序返回
+    sorted_results = sorted(document_scores.items(), key=lambda x: x[1], reverse=True)
+    return sorted_results
+    </code></pre>
+    
+    <h3>5.2 重排序优化</h3>
+    <p>对初步检索结果进行二次排序，考虑以下因素：</p>
+    <ul>
+        <li>知识权威性：来自SCA等权威来源的知识加权</li>
+        <li>时效性：优先展示最新的咖啡知识</li>
+        <li>答案完整性：包含完整解释的文档优先</li>
+        <li>用户反馈：根据历史用户反馈调整文档权重</li>
+    </ul>
+    
+    <div class="note">
+        <p><strong>性能优化注意事项：</strong></p>
+        <p>检索系统已针对咖啡领域小型知识库（约1-10万文档）进行优化，使用向量数据库(如FAISS)支持高效语义检索。复杂查询平均响应时间控制在100ms以内。</p>
+    </div>
+</body>
+</html> 

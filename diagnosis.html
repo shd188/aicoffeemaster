@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>设备诊断 - 咖啡AI助手</title>
+    <style>
+        body {
+            font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f5f2;
+            color: #3c2f2f;
+        }
+        .container {
+            max-width: 414px;
+            margin: 0 auto;
+            background-color: #fff;
+            min-height: 100vh;
+        }
+        header {
+            background-color: #6f4e37;
+            color: #fff;
+            padding: 15px;
+            text-align: center;
+            position: relative;
+        }
+        .back-button {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #fff;
+            font-size: 20px;
+        }
+        .content {
+            padding: 20px;
+        }
+        .equipment-selector {
+            margin-bottom: 25px;
+        }
+        .equipment-selector label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        .equipment-selector select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #d9cfc1;
+            border-radius: 5px;
+            font-size: 16px;
+            background-color: white;
+        }
+        .parameters-section {
+            background-color: #f2ede7;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        .parameters-title {
+            margin-top: 0;
+            color: #6f4e37;
+            font-weight: 600;
+        }
+        .parameter-group {
+            margin-bottom: 15px;
+        }
+        .parameter-group label {
+            display: block;
+            margin-bottom: 8px;
+        }
+        .parameter-group input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #d9cfc1;
+            border-radius: 5px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+        .problems-section {
+            margin-bottom: 20px;
+        }
+        .problems-title {
+            color: #6f4e37;
+            font-weight: 600;
+        }
+        .problem-checkbox {
+            margin-bottom: 10px;
+        }
+        .analyze-button {
+            background-color: #6f4e37;
+            color: #fff;
+            border: none;
+            padding: 15px;
+            border-radius: 5px;
+            width: 100%;
+            font-size: 16px;
+            margin-top: 20px;
+        }
+        .diagnosis-result {
+            margin-top: 30px;
+            background-color: #f2ede7;
+            padding: 20px;
+            border-radius: 10px;
+        }
+        .diagnosis-title {
+            margin-top: 0;
+            color: #6f4e37;
+            font-weight: 600;
+        }
+        .solution-step {
+            margin-bottom: 15px;
+            padding-left: 20px;
+            position: relative;
+        }
+        .solution-step:before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: #6f4e37;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="back-button">←</div>
+            <h2>设备诊断</h2>
+        </header>
+        
+        <div class="content">
+            <div class="equipment-selector">
+                <label>选择您的设备类型</label>
+                <select>
+                    <option value="">请选择设备类型</option>
+                    <option value="espresso">意式咖啡机</option>
+                    <option value="pour-over">手冲设备</option>
+                    <option value="french-press">法压壶</option>
+                    <option value="moka">摩卡壶</option>
+                    <option value="grinder">咖啡研磨机</option>
+                </select>
+            </div>
+            
+            <div class="parameters-section">
+                <h3 class="parameters-title">输入萃取参数</h3>
+                
+                <div class="parameter-group">
+                    <label>咖啡粉量 (g)</label>
+                    <input type="number" placeholder="例如: 18">
+                </div>
+                
+                <div class="parameter-group">
+                    <label>萃取时间 (秒)</label>
+                    <input type="number" placeholder="例如: 25">
+                </div>
+                
+                <div class="parameter-group">
+                    <label>出水量 (ml)</label>
+                    <input type="number" placeholder="例如: 36">
+                </div>
+                
+                <div class="parameter-group">
+                    <label>研磨度</label>
+                    <select>
+                        <option value="">请选择研磨度</option>
+                        <option value="very-fine">极细</option>
+                        <option value="fine">细</option>
+                        <option value="medium-fine">中细</option>
+                        <option value="medium">中等</option>
+                        <option value="medium-coarse">中粗</option>
+                        <option value="coarse">粗</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="problems-section">
+                <h3 class="problems-title">您遇到的问题</h3>
+                
+                <div class="problem-checkbox">
+                    <input type="checkbox" id="problem1">
+                    <label for="problem1">咖啡萃取太快</label>
+                </div>
+                
+                <div class="problem-checkbox">
+                    <input type="checkbox" id="problem2">
+                    <label for="problem2">咖啡萃取太慢</label>
+                </div>
+                
+                <div class="problem-checkbox">
+                    <input type="checkbox" id="problem3">
+                    <label for="problem3">味道过酸</label>
+                </div>
+                
+                <div class="problem-checkbox">
+                    <input type="checkbox" id="problem4">
+                    <label for="problem4">味道过苦</label>
+                </div>
+                
+                <div class="problem-checkbox">
+                    <input type="checkbox" id="problem5">
+                    <label for="problem5">风味不足/平淡</label>
+                </div>
+                
+                <div class="problem-checkbox">
+                    <input type="checkbox" id="problem6">
+                    <label for="problem6">出现渠道流/不均匀萃取</label>
+                </div>
+            </div>
+            
+            <button class="analyze-button">开始诊断</button>
+            
+            <div class="diagnosis-result">
+                <h3 class="diagnosis-title">诊断结果</h3>
+                <p>根据您提供的参数，您的意式咖啡机可能存在以下问题：</p>
+                
+                <h4>问题：过度萃取导致苦味</h4>
+                <p>您的萃取时间(30秒)相对于18g咖啡粉和36ml出水量来说较长，研磨度也偏细，这可能导致过度萃取，产生过多苦味和涩味。</p>
+                
+                <h4>解决方案：</h4>
+                <div class="solution-step">将研磨度调整得稍粗一些，目标萃取时间应在23-27秒之间</div>
+                <div class="solution-step">确保咖啡粉在滤篮中分布均匀，使用分布工具</div>
+                <div class="solution-step">检查萃取压力，应保持在9bar左右</div>
+                <div class="solution-step">如果有可能，降低一些萃取温度(建议91-93°C)</div>
+                
+                <h4>其他建议：</h4>
+                <p>您的咖啡机可能需要清洁或除垢，特别是如果这个问题是最近才出现的。定期清洁咖啡机对保持最佳萃取状态至关重要。</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html> 

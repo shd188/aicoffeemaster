@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>咖啡AI助手 - 数据安全与隐私保护</title>
+    <style>
+        body {
+            font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1 {
+            color: #6f4e37;
+            border-bottom: 2px solid #e6ded3;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #6f4e37;
+            margin-top: 30px;
+        }
+        h3 {
+            color: #917c6f;
+        }
+        .warning {
+            background-color: #fff8dc;
+            padding: 15px;
+            border-left: 4px solid #e6b422;
+            margin: 15px 0;
+        }
+        .policy-box {
+            background-color: #f8f5f2;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        th, td {
+            border: 1px solid #d9cfc1;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #e6ded3;
+        }
+        .important {
+            background-color: #fff0f0;
+            padding: 15px;
+            border-left: 4px solid #d86c70;
+            margin: 15px 0;
+        }
+        .code-block {
+            background-color: #f8f5f2;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            font-family: monospace;
+        }
+    </style>
+</head>
+<body>
+    <h1>咖啡AI助手 - 数据安全与隐私保护</h1>
+    
+    <h2>1. 数据安全策略</h2>
+    
+    <h3>1.1 数据分类</h3>
+    <table>
+        <tr>
+            <th>数据类别</th>
+            <th>敏感级别</th>
+            <th>保护要求</th>
+            <th>例子</th>
+        </tr>
+        <tr>
+            <td>用户身份信息</td>
+            <td>高</td>
+            <td>加密存储，严格访问控制</td>
+            <td>姓名、手机号、微信ID</td>
+        </tr>
+        <tr>
+            <td>使用记录</td>
+            <td>中</td>
+            <td>匿名化处理，限制访问</td>
+            <td>搜索历史、咖啡配方</td>
+        </tr>
+        <tr>
+            <td>咖啡偏好数据</td>
+            <td>低</td>
+            <td>基本保护措施</td>
+            <td>风味偏好、常用器具</td>
+        </tr>
+        <tr>
+            <td>匿名统计数据</td>
+            <td>极低</td>
+            <td>聚合处理，移除身份标识</td>
+            <td>功能使用率、平均响应时间</td>
+        </tr>
+    </table>
+    
+    <h3>1.2 数据保护技术措施</h3>
+    <ul>
+        <li><strong>传输加密</strong>：全程HTTPS/TLS 1.3加密通信</li>
+        <li><strong>存储加密</strong>：敏感数据使用AES-256算法加密存储</li>
+        <li><strong>密钥管理</strong>：使用KMS安全管理加密密钥</li>
+        <li><strong>访问控制</strong>：基于RBAC模型的细粒度权限控制</li>
+        <li><strong>数据脱敏</strong>：展示和处理时对敏感信息进行掩码处理</li>
+        <li><strong>安全审计</strong>：记录所有数据访问和操作日志</li>
+    </ul>
+    
+    <div class="code-block">
+// 用户数据加密示例
+function encryptUserData(userData) {
+    // 1. 获取加密密钥
+    const encryptionKey = getSecureKeyFromKMS();
+    
+    // 2. 对敏感字段分别加密
+    const encryptedData = {
+        userId: userData.userId, // 不加密ID
+        name: encrypt(userData.name, encryptionKey),
+        phone: encrypt(userData.phone, encryptionKey),
+        email: encrypt(userData.email, encryptionKey),
+        // 非敏感数据不加密
+        preferences: userData.preferences,
+        createTime: userData.createTime
+    };
+    
+    // 3. 记录访问日志
+    logDataAccess('encrypt', userData.userId, getCurrentUser());
+    
+    return encryptedData;
+}
+    </div>
+    
+    <h3>1.3 数据安全生命周期管理</h3>
+    <ol>
+        <li><strong>数据收集</strong>：明确告知用户收集目的，获取用户授权</li>
+        <li><strong>数据传输</strong>：使用安全传输协议，防止中间人攻击</li>
+        <li><strong>数据存储</strong>：分级存储，加密保护，定期备份</li>
+        <li><strong>数据使用</strong>：最小授权原则，行为审计，异常监控</li>
+        <li><strong>数据共享</strong>：匿名化处理，目的限制，合规审核</li>
+        <li><strong>数据归档</strong>：安全归档，访问控制，完整性保护</li>
+        <li><strong>数据销毁</strong>：彻底删除，不可恢复，销毁证明</li>
+    </ol>
+    
+    <h2>2. 隐私保护机制</h2>
+    
+    <h3>2.1 用户数据收集原则</h3>
+    <ul>
+        <li><strong>最小化原则</strong>：仅收集必要的个人信息</li>
+        <li><strong>明示同意</strong>：清晰告知数据用途并获取同意</li>
+        <li><strong>目的限制</strong>：数据使用不超出收集目的</li>
+        <li><strong>透明度</strong>：用户可查看已收集的个人数据</li>
+        <li><strong>安全保障</strong>：采取必要措施保护用户数据</li>
+    </ul>
+    
+    <div class="policy-box">
+        <h4>数据收集声明示例</h4>
+        <p>咖啡AI助手收集以下数据以提供个性化服务：</p>
+        <ul>
+            <li>基本账户信息：用于身份识别和登录验证</li>
+            <li>咖啡偏好：用于提供个性化推荐</li>
+            <li>搜索历史：用于改善搜索结果和用户体验</li>
+            <li>设备信息：用于优化不同设备上的使用体验</li>
+        </ul>
+        <p>我们不会收集与服务无关的个人信息，所有数据均采取严格的安全保护措施。</p>
+    </div>
+    
+    <h3>2.2 隐私增强技术</h3>
+    <table>
+        <tr>
+            <th>技术方案</th>
+            <th>应用场景</th>
+            <th>实现方式</th>
+        </tr>
+        <tr>
+            <td>数据匿名化</td>
+            <td>用户行为分析</td>
+            <td>移除可识别信息，分类聚合处理</td>
+        </tr>
+        <tr>
+            <td>差分隐私</td>
+            <td>统计分析报告</td>
+            <td>添加随机噪声，保护单个用户数据</td>
+        </tr>
+        <tr>
+            <td>本地处理</td>
+            <td>咖啡图片分析</td>
+            <td>在用户设备上完成初步分析，减少数据传输</td>
+        </tr>
+        <tr>
+            <td>数据最小化</td>
+            <td>全程应用</td>
+            <td>仅收集和处理必要数据</td>
+        </tr>
+        <tr>
+            <td>敏感数据遮蔽</td>
+            <td>客服支持</td>
+            <td>自动识别并遮蔽聊天中的敏感信息</td>
+        </tr>
+    </table>
+    
+    <h3>2.3 用户隐私控制</h3>
+    <p>为用户提供的隐私管理功能：</p>
+    <ul>
+        <li><strong>隐私设置中心</strong>：集中管理所有隐私相关选项</li>
+        <li><strong>数据访问权</strong>：查看系统收集的个人数据</li>
+        <li><strong>数据导出</strong>：以标准格式导出个人数据</li>
+        <li><strong>数据修改</strong>：更新或纠正个人信息</li>
+        <li><strong>数据删除</strong>：请求删除部分或全部个人数据</li>
+        <li><strong>追踪限制</strong>：控制用户行为分析的范围</li>
+        <li><strong>营销选择</strong>：管理营销消息的接收设置</li>
+    </ul>
+    
+    <div class="important">
+        <p><strong>用户隐私权提示：</strong></p>
+        <p>根据《个人信息保护法》，用户拥有访问、更正、删除个人信息的权利，以及撤回同意的权利。我们提供多种渠道保障用户行使这些权利，包括应用内的隐私设置中心和客服支持。</p>
+    </div>
+    
+    <h2>3. 安全合规管理</h2>
+    
+    <h3>3.1 合规框架</h3>
+    <p>咖啡AI助手遵循以下法规和标准：</p>
+    <ul>
+        <li><strong>国内法规</strong>：《网络安全法》、《个人信息保护法》、《数据安全法》</li>
+        <li><strong>行业标准</strong>：《信息安全技术 个人信息安全规范》(GB/T 35273-2020)</li>
+        <li><strong>安全认证</strong>：ISO 27001信息安全管理体系认证</li>
+        <li><strong>内部规范</strong>：公司数据安全管理制度、个人信息处理规程</li>
+    </ul>
+    
+    <h3>3.2 责任分配</h3>
+    <table>
+        <tr>
+            <th>角色</th>
+            <th>职责</th>
+            <th>负责部门</th>
+        </tr>
+        <tr>
+            <td>数据保护负责人</td>
+            <td>制定数据保护策略，监督实施，处理安全事件</td>
+            <td>安全合规部</td>
+        </tr>
+        <tr>
+            <td>系统管理员</td>
+            <td>系统配置管理，权限分配，安全补丁更新</td>
+            <td>IT运维团队</td>
+        </tr>
+        <tr>
+            <td>开发人员</td>
+            <td>遵循安全编码规范，实现技术保护措施</td>
+            <td>研发团队</td>
+        </tr>
+        <tr>
+            <td>业务人员</td>
+            <td>遵守数据使用规范，发现问题及时报告</td>
+            <td>各业务部门</td>
+        </tr>
+        <tr>
+            <td>数据归档</td>
+            <td>加密归档、访问限制、完整性保护</td>
+            <td>数据库运维团队</td>
+        </tr>
+        <tr>
+            <td>数据删除</td>
+            <td>彻底销毁、删除证明、记录留存</td>
+            <td>数据库运维团队</td>
+        </tr>
+    </table>
+    
+    <h3>3.3 第三方安全管理</h3>
+    <p>针对系统使用的第三方服务，实施以下安全管控：</p>
+    <ul>
+        <li>第三方安全评估与准入机制</li>
+        <li>数据处理协议签署与合规要求</li>
+        <li>定期安全审计与评估</li>
+        <li>明确数据使用边界与隐私保护责任</li>
+        <li>第三方访问权限最小化控制</li>
+    </ul>
+    
+    <div class="warning">
+        <p><strong>安全风险提示：</strong></p>
+        <p>咖啡AI助手使用的第三方服务包括微信小程序平台、云服务提供商、AI模型服务等。虽然已采取严格的安全措施，但用户仍应注意：</p>
+        <ol>
+            <li>避免在聊天对话中透露个人敏感信息</li>
+            <li>使用复杂密码并定期更换</li>
+            <li>及时更新应用至最新版本</li>
+            <li>发现安全问题及时联系客服报告</li>
+        </ol>
+    </div>
+    
+    <h2>4. 安全响应与应急预案</h2>
+    
+    <h3>4.1 安全事件分级</h3>
+    <table>
+        <tr>
+            <th>级别</th>
+            <th>事件描述</th>
+            <th>响应时间</th>
+            <th>处理流程</th>
+        </tr>
+        <tr>
+            <td>P0-特急</td>
+            <td>大规模数据泄露或系统被攻破</td>
+            <td>立即响应</td>
+            <td>启动全面应急预案，组织跨部门应急小组</td>
+        </tr>
+        <tr>
+            <td>P1-紧急</td>
+            <td>有限范围数据泄露或高危漏洞</td>
+            <td>2小时内</td>
+            <td>安全团队全员响应，限制影响范围</td>
+        </tr>
+        <tr>
+            <td>P2-重要</td>
+            <td>系统漏洞或异常访问</td>
+            <td>24小时内</td>
+            <td>安排专人处理，制定修复方案</td>
+        </tr>
+        <tr>
+            <td>P3-一般</td>
+            <td>非敏感配置问题或低风险漏洞</td>
+            <td>72小时内</td>
+            <td>纳入常规工作计划处理</td>
+        </tr>
+    </table>
+    
+    <h3>4.2 安全事件响应流程</h3>
+    <ol>
+        <li><strong>发现与报告</strong>：通过监控系统或用户反馈发现安全事件</li>
+        <li><strong>评估与分级</strong>：安全团队评估影响范围和严重程度</li>
+        <li><strong>控制与隔离</strong>：采取措施控制事件扩散</li>
+        <li><strong>调查与分析</strong>：确定事件原因和影响</li>
+        <li><strong>修复与恢复</strong>：实施修复方案并恢复正常运行</li>
+        <li><strong>通知与沟通</strong>：向相关方通报情况</li>
+        <li><strong>总结与改进</strong>：事后复盘，优化安全措施</li>
+    </ol>
+    
+    <h3>4.3 用户通知机制</h3>
+    <p>当发生可能影响用户数据安全的事件时：</p>
+    <ul>
+        <li>72小时内向相关监管部门报告</li>
+        <li>及时通过应用内消息、电子邮件等方式通知受影响用户</li>
+        <li>提供清晰的事件说明、影响范围和应对建议</li>
+        <li>设立专门渠道处理用户咨询和反馈</li>
+        <li>定期发布事件处理进展公告</li>
+    </ul>
+    
+    <h2>5. 隐私政策与合规文档</h2>
+    
+    <div class="policy-box">
+        <h4>隐私政策要点</h4>
+        <p>完整隐私政策详见应用内"设置-隐私政策"，主要内容包括：</p>
+        <ol>
+            <li>收集的个人信息类型及用途</li>
+            <li>数据存储位置及保留期限</li>
+            <li>数据共享及第三方信息获取说明</li>
+            <li>用户权利及行使方式</li>
+            <li>隐私政策更新机制</li>
+            <li>联系方式及投诉渠道</li>
+        </ol>
+    </div>
+    
+    <h3>5.1 用户协议与授权</h3>
+    <p>用户协议与隐私政策结构：</p>
+    <ul>
+        <li>使用简明、直接的语言描述</li>
+        <li>采用分层展示方式，突出重点条款</li>
+        <li>提供可视化元素辅助理解</li>
+        <li>重要授权采用确认机制</li>
+        <li>提供完整下载版本</li>
+    </ul>
+    
+    <h3>5.2 合规审计与评估</h3>
+    <p>定期进行安全合规评估：</p>
+    <ul>
+        <li>每季度进行内部安全评估</li>
+        <li>每年进行一次外部机构安全审计</li>
+        <li>新功能上线前进行隐私影响评估</li>
+        <li>定期对员工进行数据安全培训</li>
+        <li>建立安全合规检查清单和评分机制</li>
+    </ul>
+    
+    <h3>5.3 安全能力建设</h3>
+    <p>持续提升安全防护能力：</p>
+    <ol>
+        <li>建立安全开发生命周期(S-SDLC)</li>
+        <li>实施持续安全集成与部署</li>
+        <li>开展定期安全渗透测试</li>
+        <li>组织安全应急演练</li>
+        <li>推行零信任安全架构</li>
+        <li>建立安全知识库和最佳实践</li>
+    </ol>
+    
+    <div class="important">
+        <p><strong>合规声明</strong></p>
+        <p>咖啡AI助手严格遵守中国相关法律法规，包括但不限于《网络安全法》、《个人信息保护法》和《数据安全法》。我们承诺持续优化数据保护措施，确保用户隐私安全。如您对我们的数据处理有任何疑问，请通过应用内的"帮助与反馈"联系我们。</p>
+    </div>
+</body>
+</html> 

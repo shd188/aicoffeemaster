@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>风味轮分析 - 咖啡AI助手</title>
+    <style>
+        body {
+            font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f5f2;
+            color: #3c2f2f;
+        }
+        .container {
+            max-width: 414px;
+            margin: 0 auto;
+            background-color: #fff;
+            min-height: 100vh;
+        }
+        header {
+            background-color: #6f4e37;
+            color: #fff;
+            padding: 15px;
+            text-align: center;
+            position: relative;
+        }
+        .back-button {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #fff;
+            font-size: 20px;
+        }
+        .content {
+            padding: 20px;
+        }
+        .upload-section {
+            background-color: #f2ede7;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .upload-icon {
+            font-size: 40px;
+            color: #6f4e37;
+            margin-bottom: 10px;
+        }
+        .upload-text {
+            margin-bottom: 15px;
+        }
+        .upload-button {
+            background-color: #6f4e37;
+            color: #fff;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        .text-input {
+            margin-top: 20px;
+        }
+        .text-input textarea {
+            width: 100%;
+            height: 150px;
+            padding: 12px;
+            border: 1px solid #d9cfc1;
+            border-radius: 5px;
+            font-size: 16px;
+            resize: none;
+            box-sizing: border-box;
+        }
+        .analyze-button {
+            background-color: #6f4e37;
+            color: #fff;
+            border: none;
+            padding: 15px;
+            border-radius: 5px;
+            width: 100%;
+            font-size: 16px;
+            margin-top: 20px;
+        }
+        .result-section {
+            margin-top: 30px;
+        }
+        .radar-chart {
+            background-color: #f2ede7;
+            height: 300px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        .flavor-notes {
+            background-color: #f2ede7;
+            padding: 15px;
+            border-radius: 10px;
+        }
+        .flavor-title {
+            margin-top: 0;
+            color: #6f4e37;
+            font-weight: 600;
+        }
+        .flavor-tag {
+            display: inline-block;
+            background-color: #e6ded3;
+            padding: 8px 12px;
+            border-radius: 20px;
+            margin-right: 8px;
+            margin-bottom: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="back-button">←</div>
+            <h2>风味轮分析</h2>
+        </header>
+        
+        <div class="content">
+            <div class="upload-section">
+                <div class="upload-icon">📋</div>
+                <div class="upload-text">上传您的杯测笔记或照片</div>
+                <button class="upload-button">上传文件</button>
+            </div>
+            
+            <div class="text-input">
+                <textarea placeholder="或者在此处输入您的杯测笔记描述...例如：这款咖啡带有明显的柑橘酸，有草莓和蓝莓的风味，余韵中带有黑巧克力的醇厚感..."></textarea>
+            </div>
+            
+            <button class="analyze-button">生成风味分析</button>
+            
+            <div class="result-section">
+                <h3>风味分析结果</h3>
+                
+                <div class="radar-chart">
+                    [这里将显示风味雷达图]
+                </div>
+                
+                <div class="flavor-notes">
+                    <h4 class="flavor-title">主要风味特征</h4>
+                    <div class="flavor-tag">草莓</div>
+                    <div class="flavor-tag">蓝莓</div>
+                    <div class="flavor-tag">柑橘</div>
+                    <div class="flavor-tag">黑巧克力</div>
+                    
+                    <h4 class="flavor-title">风味描述</h4>
+                    <p>这款咖啡展现出明显的水果风味特征，以红色水果(草莓、蓝莓)为主，带有明亮的柑橘酸度。尾韵中的黑巧克力风味提供了平衡的醇厚感。整体风味丰富而平衡，酸度明亮但不过度，适合喜欢明亮风格的咖啡爱好者。</p>
+                    
+                    <h4 class="flavor-title">可能产区</h4>
+                    <p>根据风味特征分析，这款咖啡可能来自埃塞俄比亚耶加雪菲或肯尼亚产区。</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html> 

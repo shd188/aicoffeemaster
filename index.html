@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>咖啡AI助手</title>
+    <style>
+        body {
+            font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f5f2;
+            color: #3c2f2f;
+        }
+        .container {
+            max-width: 414px;
+            margin: 0 auto;
+            background-color: #fff;
+            min-height: 100vh;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        header {
+            background-color: #6f4e37;
+            color: #fff;
+            padding: 15px;
+            text-align: center;
+        }
+        .main-menu {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            padding: 20px;
+        }
+        .menu-item {
+            background-color: #e6ded3;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease;
+        }
+        .menu-item:hover {
+            transform: translateY(-5px);
+        }
+        .menu-item i {
+            font-size: 32px;
+            margin-bottom: 10px;
+            color: #6f4e37;
+        }
+        .menu-item h3 {
+            margin: 0;
+            font-weight: 500;
+        }
+        .quick-ask {
+            margin: 20px;
+            padding: 15px;
+            background-color: #fff;
+            border-radius: 20px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .quick-ask input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #d9cfc1;
+            border-radius: 20px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: #917c6f;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>咖啡AI助手</h1>
+        </header>
+        
+        <div class="quick-ask">
+            <input type="text" placeholder="请输入咖啡相关问题...">
+        </div>
+        
+        <div class="main-menu">
+            <div class="menu-item">
+                <i class="icon-chat"></i>
+                <h3>智能问答</h3>
+            </div>
+            <div class="menu-item">
+                <i class="icon-calculator"></i>
+                <h3>萃取计算器</h3>
+            </div>
+            <div class="menu-item">
+                <i class="icon-flavor"></i>
+                <h3>风味轮分析</h3>
+            </div>
+            <div class="menu-item">
+                <i class="icon-diagnosis"></i>
+                <h3>设备诊断</h3>
+            </div>
+        </div>
+        
+        <footer>
+            <p>咖啡AI助手 - 专业咖啡知识一键解答</p>
+        </footer>
+    </div>
+</body>
+</html> 

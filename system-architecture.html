@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>咖啡AI助手 - 系统架构与部署方案</title>
+    <style>
+        body {
+            font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1 {
+            color: #6f4e37;
+            border-bottom: 2px solid #e6ded3;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #6f4e37;
+            margin-top: 30px;
+        }
+        h3 {
+            color: #917c6f;
+        }
+        .architecture-diagram {
+            background-color: #f8f5f2;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            margin: 20px 0;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        th, td {
+            border: 1px solid #d9cfc1;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #e6ded3;
+        }
+        .note {
+            background-color: #e6ded3;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+        .warning {
+            background-color: #fff8dc;
+            padding: 15px;
+            border-left: 4px solid #e6b422;
+            margin: 15px 0;
+        }
+        .code-block {
+            background-color: #f8f5f2;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            font-family: monospace;
+        }
+    </style>
+</head>
+<body>
+    <h1>咖啡AI助手 - 系统架构与部署方案</h1>
+    
+    <h2>1. 整体架构设计</h2>
+    
+    <div class="architecture-diagram">
+        [系统架构图：微信小程序 → API网关 → 微服务集群 → 数据存储 → AI模型服务]
+    </div>
+    
+    <h3>1.1 架构层次</h3>
+    <ul>
+        <li><strong>表现层</strong>：微信小程序界面，用户交互界面</li>
+        <li><strong>接口层</strong>：RESTful API网关，接口管理和流量控制</li>
+        <li><strong>业务逻辑层</strong>：微服务架构，拆分为不同功能模块</li>
+        <li><strong>数据访问层</strong>：数据存储与检索服务</li>
+        <li><strong>AI引擎层</strong>：大模型与专业咖啡知识模型服务</li>
+        <li><strong>监控层</strong>：日志、指标监控与告警系统</li>
+    </ul>
+    
+    <h3>1.2 核心系统组件</h3>
+    <table>
+        <tr>
+            <th>组件名称</th>
+            <th>功能描述</th>
+            <th>技术选型</th>
+        </tr>
+        <tr>
+            <td>API网关</td>
+            <td>路由、认证、限流、负载均衡</td>
+            <td>Kong API Gateway</td>
+        </tr>
+        <tr>
+            <td>会话管理服务</td>
+            <td>用户会话、对话历史管理</td>
+            <td>Spring Boot + Redis</td>
+        </tr>
+        <tr>
+            <td>知识检索服务</td>
+            <td>咖啡知识库检索</td>
+            <td>ElasticSearch + Milvus</td>
+        </tr>
+        <tr>
+            <td>计算引擎服务</td>
+            <td>萃取参数计算和优化</td>
+            <td>Python + NumPy</td>
+        </tr>
+        <tr>
+            <td>大模型服务</td>
+            <td>对话理解与生成</td>
+            <td>Deepseek + FastAPI</td>
+        </tr>
+        <tr>
+            <td>风味分析服务</td>
+            <td>风味轮数据生成与分析</td>
+            <td>Python + scikit-learn</td>
+        </tr>
+        <tr>
+            <td>设备诊断服务</td>
+            <td>咖啡设备故障诊断</td>
+            <td>Python + 决策树</td>
+        </tr>
+        <tr>
+            <td>用户管理服务</td>
+            <td>用户信息与权限管理</td>
+            <td>Spring Boot + MySQL</td>
+        </tr>
+        <tr>
+            <td>监控告警系统</td>
+            <td>系统监控与故障告警</td>
+            <td>Prometheus + Grafana</td>
+        </tr>
+    </table>
+    
+    <h2>2. 微服务设计</h2>
+    
+    <h3>2.1 服务拆分原则</h3>
+    <p>按照咖啡AI助手的核心功能域进行微服务拆分：</p>
+    <ul>
+        <li>单一职责原则：每个微服务只负责一个特定业务功能</li>
+        <li>服务自治原则：服务可独立部署、升级和扩展</li>
+        <li>领域驱动设计：基于咖啡业务领域模型划分服务边界</li>
+        <li>数据隔离原则：每个微服务拥有独立的数据存储</li>
+    </ul>
+    
+    <h3>2.2 服务通信模式</h3>
+    <p>采用混合通信模式：</p>
+    <ul>
+        <li><strong>同步通信</strong>：REST API用于实时请求响应场景</li>
+        <li><strong>异步通信</strong>：Kafka消息队列用于事件驱动场景</li>
+        <li><strong>服务发现</strong>：使用Consul实现服务注册与发现</li>
+        <li><strong>API契约</strong>：使用OpenAPI标准定义服务接口</li>
+    </ul>
+    
+    <div class="code-block">
+// 服务注册示例（以知识检索服务为例）
+@SpringBootApplication
+@EnableDiscoveryClient
+public class KnowledgeRetrievalServiceApplication {
+    
+    public static void main(String[] args) {
+        SpringApplication.run(KnowledgeRetrievalServiceApplication.class, args);
+    }
+    
+    @Bean
+    public ConsulServiceRegistry serviceRegistry(ConsulClient consulClient) {
+        return new ConsulServiceRegistry(
+            consulClient,
+            new ConsulRegistrationProperties(),
+            new TtlScheduler(),
+            new HeartbeatProperties()
+        );
+    }
+}
+    </div>
+    
+    <h3>2.3 API网关设计</h3>
+    <p>基于Kong实现的API网关功能：</p>
+    <ul>
+        <li>路由转发：将请求路由到对应的微服务</li>
+        <li>认证授权：统一认证和权限控制</li>
+        <li>限流控制：防止服务过载</li>
+        <li>日志记录：请求响应日志</li>
+        <li>缓存管理：响应缓存</li>
+        <li>协议转换：WebSocket到HTTP转换</li>
+    </ul>
+    
+    <div class="note">
+        <p><strong>网关配置示例</strong></p>
+        <p>针对咖啡知识问答服务的Kong配置：</p>
+        <pre>
+curl -i -X POST http://kong:8001/services/ \
+  --data "name=coffee-qa-service" \
+  --data "url=http://coffee-qa-service:8080/api/v1/qa"
+  
+curl -i -X POST http://kong:8001/services/coffee-qa-service/routes \
+  --data "paths[]=/api/qa" \
+  --data "strip_path=true"
+  
+curl -i -X POST http://kong:8001/services/coffee-qa-service/plugins \
+  --data "name=rate-limiting" \
+  --data "config.minute=60" \
+  --data "config.hour=1000"
+        </pre>
+    </div>
+    
+    <h2>3. 云部署方案</h2>
+    
+    <h3>3.1 多环境部署策略</h3>
+    <p>建立完整的环境分离策略：</p>
+    <table>
+        <tr>
+            <th>环境名称</th>
+            <th>用途</th>
+            <th>部署配置</th>
+        </tr>
+        <tr>
+            <td>开发环境(DEV)</td>
+            <td>日常开发测试</td>
+            <td>最小规模配置，单节点部署</td>
+        </tr>
+        <tr>
+            <td>测试环境(UAT)</td>
+            <td>功能与性能测试</td>
+            <td>中等规模，模拟生产环境配置</td>
+        </tr>
+        <tr>
+            <td>预生产环境(PRE-PROD)</td>
+            <td>上线前最终验证</td>
+            <td>与生产环境配置相同，数据脱敏</td>
+        </tr>
+        <tr>
+            <td>生产环境(PROD)</td>
+            <td>正式对外服务</td>
+            <td>高可用集群，多区域部署</td>
+        </tr>
+    </table>
+    
+    <h3>3.2 容器编排策略</h3>
+    <p>基于Kubernetes的容器编排解决方案：</p>
+    <ul>
+        <li><strong>命名空间划分</strong>：按服务类型和环境划分Kubernetes命名空间</li>
+        <li><strong>部署策略</strong>：采用滚动更新(Rolling Update)策略确保无缝升级</li>
+        <li><strong>资源配额</strong>：为各服务设置CPU和内存资源限制</li>
+        <li><strong>弹性伸缩</strong>：基于CPU利用率的Horizontal Pod Autoscaler</li>
+        <li><strong>健康检查</strong>：为所有服务配置存活探针(Liveness Probe)和就绪探针(Readiness Probe)</li>
+    </ul>
+    
+    <div class="code-block">
+# 咖啡知识检索服务的Kubernetes部署配置示例
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: knowledge-retrieval-service
+  namespace: coffee-ai-prod
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: knowledge-retrieval
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  template:
+    metadata:
+      labels:
+        app: knowledge-retrieval
+    spec:
+      containers:
+      - name: knowledge-retrieval
+        image: coffee-ai/knowledge-retrieval:v1.2.3
+        ports:
+        - containerPort: 8080
+        resources:
+          requests:
+            memory: "512Mi"
+            cpu: "200m"
+          limits:
+            memory: "1Gi"
+            cpu: "500m"
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 8080
+          initialDelaySeconds: 30
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /ready
+            port: 8080
+          initialDelaySeconds: 5
+          periodSeconds: 5
+        env:
+        - name: SPRING_PROFILES_ACTIVE
+          value: "prod"
+    </div>
+    
+    <h3>3.3 基础设施即代码(IaC)</h3>
+    <p>使用Terraform管理云资源：</p>
+    <div class="code-block">
+# 阿里云Kubernetes集群Terraform配置示例
+provider "alicloud" {
+  region = "cn-shanghai"
+}
+
+resource "alicloud_cs_managed_kubernetes" "coffee_ai_cluster" {
+  name                      = "coffee-ai-cluster"
+  version                   = "1.20.11-aliyun.1"
+  worker_vswitch_ids        = ["vsw-uf6g5dvqwbw1ruwk7xxxx"]
+  worker_instance_types     = ["ecs.c6.xlarge"]
+  worker_number             = 3
+  worker_disk_category      = "cloud_essd"
+  worker_disk_size          = 100
+  pod_cidr                  = "172.20.0.0/16"
+  service_cidr              = "172.21.0.0/20"
+  
+  addons {
+    name     = "flannel"
+    config   = "{}"
+  }
+  
+  addons {
+    name     = "csi-plugin"
+    config   = "{}"
+  }
+  
+  addons {
+    name     = "nginx-ingress-controller"
+    config   = "{}"
+  }
+}
+
+resource "alicloud_cs_kubernetes_node_pool" "ai_model_pool" {
+  name                      = "ai-model-pool"
+  cluster_id                = alicloud_cs_managed_kubernetes.coffee_ai_cluster.id
+  vswitch_ids               = ["vsw-uf6g5dvqwbw1ruwk7xxxx"]
+  instance_types            = ["ecs.gn6i-c8g1.2xlarge"]  # GPU实例
+  system_disk_category      = "cloud_essd"
+  system_disk_size          = 100
+  data_disks {
+    category               = "cloud_essd"
+    size                   = 200
+  }
+  desired_size             = 2
+  
+  labels = {
+    "workload.type" = "ai-model"
+  }
+  
+  taints {
+    key    = "dedicated"
+    value  = "ai-workload"
+    effect = "NoSchedule"
+  }
+}
+    </div>
+    
+    <h2>4. 安全与隐私保障</h2>
+    
+    <h3>4.1 安全架构</h3>
+    <ul>
+        <li><strong>网络安全</strong>：VPC隔离、WAF防护、DDoS防护</li>
+        <li><strong>传输安全</strong>：全链路TLS 1.3加密</li>
+        <li><strong>认证与授权</strong>：OAuth 2.0与JWT令牌</li>
+        <li><strong>数据安全</strong>：敏感数据加密存储</li>
+        <li><strong>容器安全</strong>：镜像扫描、运行时安全</li>
+        <li><strong>API安全</strong>：接口签名验证、防重放攻击</li>
+    </ul>
+    
+    <h3>4.2 隐私合规</h3>
+    <p>确保系统符合中国隐私法规要求：</p>
+    <ul>
+        <li>《网络安全法》合规：数据分级分类、重要数据保护</li>
+        <li>《个人信息保护法》合规：最小必要、明示同意</li>
+        <li>《数据安全法》合规：数据分类分级、重要数据保护</li>
+        <li>隐私保护实践：数据脱敏、用户可控</li>
+    </ul>
+    
+    <div class="warning">
+        <p><strong>数据处理安全要求：</strong></p>
+        <p>1. 用户输入的咖啡偏好信息必须加密存储</p>
+        <p>2. 用户历史查询记录需在本地加密保存，服务端匿名化存储</p>
+        <p>3. 对话记录保留期限不超过90天</p>
+        <p>4. 严禁收集与咖啡助手功能无关的用户数据</p>
+    </div>
+    
+    <h2>5. 监控与告警系统</h2>
+    
+    <h3>5.1 多维度监控</h3>
+    <p>建立全方位监控体系：</p>
+    <table>
+        <tr>
+            <th>监控维度</th>
+            <th>监控指标</th>
+            <th>工具</th>
+        </tr>
+        <tr>
+            <td>基础设施监控</td>
+            <td>CPU、内存、磁盘、网络</td>
+            <td>Prometheus + Node Exporter</td>
+        </tr>
+        <tr>
+            <td>容器监控</td>
+            <td>Pod状态、资源使用率</td>
+            <td>cAdvisor + Kubernetes Metrics Server</td>
+        </tr>
+        <tr>
+            <td>应用监控</td>
+            <td>JVM指标、GC、线程状态</td>
+            <td>Micrometer + Prometheus</td>
+        </tr>
+        <tr>
+            <td>API监控</td>
+            <td>请求量、响应时间、错误率</td>
+            <td>Kong Prometheus Plugin</td>
+        </tr>
+        <tr>
+            <td>AI模型监控</td>
+            <td>推理延迟、GPU利用率、准确率</td>
+            <td>自定义Exporter</td>
+        </tr>
+        <tr>
+            <td>业务指标</td>
+            <td>日活、会话数、知识命中率</td>
+            <td>自定义业务指标收集器</td>
+        </tr>
+        <tr>
+            <td>日志监控</td>
+            <td>错误日志、异常事件</td>
+            <td>ELK Stack + Loki</td>
+        </tr>
+    </table>
+    
+    <h3>5.2 告警策略</h3>
+    <p>分级告警体系：</p>
+    <table>
+        <tr>
+            <th>告警级别</th>
+            <th>示例场景</th>
+            <th>响应时间</th>
+            <th>通知方式</th>
+        </tr>
+        <tr>
+            <td>P0-紧急</td>
+            <td>生产环境服务中断</td>
+            <td>15分钟内</td>
+            <td>电话+短信+企业微信</td>
+        </tr>
+        <tr>
+            <td>P1-严重</td>
+            <td>部分功能不可用</td>
+            <td>30分钟内</td>
+            <td>短信+企业微信</td>
+        </tr>
+        <tr>
+            <td>P2-重要</td>
+            <td>服务性能下降</td>
+            <td>2小时内</td>
+            <td>企业微信</td>
+        </tr>
+        <tr>
+            <td>P3-一般</td>
+            <td>非核心功能异常</td>
+            <td>24小时内</td>
+            <td>邮件+企业微信群</td>
+        </tr>
+    </table>
+    
+    <div class="code-block">
+# Prometheus告警规则示例
+groups:
+- name: coffee-ai-alerts
+  rules:
+  - alert: ApiHighErrorRate
+    expr: sum(rate(http_requests_total{status=~"5.."}[5m])) / sum(rate(http_requests_total[5m])) > 0.05
+    for: 5m
+    labels:
+      severity: P1
+    annotations:
+      summary: "API错误率过高"
+      description: "API错误率超过5%，当前值为 {{ $value | humanizePercentage }}"
+      
+  - alert: ModelInferenceLatencyHigh
+    expr: avg(model_inference_duration_seconds{model="coffee_qa"}) > 2
+    for: 10m
+    labels:
+      severity: P2
+    annotations:
+      summary: "模型推理延迟过高"
+      description: "咖啡问答模型平均推理时间超过2秒，当前值为 {{ $value }}s"
+      
+  - alert: KnowledgeRetrievalServiceDown
+    expr: up{job="knowledge-retrieval-service"} == 0
+    for: 1m
+    labels:
+      severity: P0
+    annotations:
+      summary: "知识检索服务不可用"
+      description: "知识检索服务实例不可用，请立即检查"
+    </div>
+    
+    <h2>6. 灾备与高可用设计</h2>
+    
+    <h3>6.1 多区域部署</h3>
+    <p>采用跨区域部署策略，确保系统高可用：</p>
+    <ul>
+        <li><strong>主区域</strong>：阿里云华东2（上海）区域</li>
+        <li><strong>备用区域</strong>：阿里云华北2（北京）区域</li>
+        <li><strong>全球加速</strong>：使用阿里云CDN和全球加速服务优化全球访问速度</li>
+        <li><strong>跨区域数据同步</strong>：关键数据双区域同步</li>
+    </ul>
+    
+    <h3>6.2 故障转移</h3>
+    <p>针对不同级别故障的转移策略：</p>
+    <ul>
+        <li><strong>实例级故障转移</strong>：Kubernetes自动重新调度Pod</li>
+        <li><strong>节点级故障转移</strong>：Node不可用时自动驱逐Pod到健康节点</li>
+        <li><strong>可用区故障转移</strong>：多可用区部署，自动流量切换</li>
+        <li><strong>区域级故障转移</strong>：使用全局负载均衡，故障时切换到备用区域</li>
+    </ul>
+    
+    <h3>6.3 数据备份与恢复</h3>
+    <p>多层次数据保护策略：</p>
+    <table>
+        <tr>
+            <th>数据类型</th>
+            <th>备份频率</th>
+            <th>保留期</th>
+            <th>恢复目标</th>
+        </tr>
+        <tr>
+            <td>用户数据</td>
+            <td>每日增量，每周全量</td>
+            <td>90天</td>
+            <td>RPO&lt;24h, RTO&lt;4h</td>
+        </tr>
+        <tr>
+            <td>知识库数据</td>
+            <td>每周全量，实时变更日志</td>
+            <td>180天</td>
+            <td>RPO&lt;1h, RTO&lt;2h</td>
+        </tr>
+        <tr>
+            <td>模型权重</td>
+            <td>每次更新后备份</td>
+            <td>保留最近5个版本</td>
+            <td>RPO=0, RTO&lt;30min</td>
+        </tr>
+        <tr>
+            <td>配置数据</td>
+            <td>每次变更自动备份</td>
+            <td>365天</td>
+            <td>RPO=0, RTO&lt;15min</td>
+        </tr>
+    </table>
+    
+    <h2>7. 持续交付流水线</h2>
+    
+    <h3>7.1 CICD架构</h3>
+    <p>基于GitLab CI/CD的持续集成与部署流水线：</p>
+    <div class="architecture-diagram">
+        [CICD流水线：代码提交 → 自动化测试 → 构建容器镜像 → 漏洞扫描 → 部署测试环境 → 集成测试 → 部署生产环境]
+    </div>
+    
+    <h3>7.2 发布策略</h3>
+    <p>采用渐进式发布策略：</p>
+    <ul>
+        <li><strong>蓝绿部署</strong>：关键组件使用蓝绿部署策略</li>
+        <li><strong>金丝雀发布</strong>：新版本先导入5%流量，逐步增加</li>
+        <li><strong>特性开关</strong>：使用特性开关控制新功能上线</li>
+        <li><strong>快速回滚</strong>：出现问题时一键回滚到稳定版本</li>
+    </ul>
+    
+    <div class="note">
+        <p><strong>发布流程要点</strong></p>
+        <ol>
+            <li>所有代码变更需经过代码评审</li>
+            <li>自动化测试覆盖率必须>=85%</li>
+            <li>性能测试确保无退化</li>
+            <li>发布窗口：每周二、四晚间20:00-22:00</li>
+            <li>发布公告提前24小时发出</li>
+            <li>关键服务发布需准备详细回滚方案</li>
+        </ol>
+    </div>
+    
+    <h2>8. 资源规划与成本估算</h2>
+    
+    <h3>8.1 资源需求预估</h3>
+    <p>基于10万日活用户规模的资源需求：</p>
+    <table>
+        <tr>
+            <th>服务类型</th>
+            <th>规格</th>
+            <th>数量</th>
+            <th>用途</th>
+        </tr>
+        <tr>
+            <td>微服务应用节点</td>
+            <td>8核16G</td>
+            <td>12</td>
+            <td>业务逻辑处理</td>
+        </tr>
+        <tr>
+            <td>AI模型服务器</td>
+            <td>8核32G+GPU</td>
+            <td>4</td>
+            <td>模型推理</td>
+        </tr>
+        <tr>
+            <td>知识库检索节点</td>
+            <td>8核32G</td>
+            <td>6</td>
+            <td>向量与全文检索</td>
+        </tr>
+        <tr>
+            <td>数据库服务器</td>
+            <td>8核16G</td>
+            <td>4</td>
+            <td>关系型数据存储</td>
+        </tr>
+        <tr>
+            <td>缓存服务器</td>
+            <td>4核8G</td>
+            <td>4</td>
+            <td>Redis缓存集群</td>
+        </tr>
+        <tr>
+            <td>监控与日志</td>
+            <td>8核16G</td>
+            <td>3</td>
+            <td>监控和日志汇总</td>
+        </tr>
+        <tr>
+            <td>对象存储</td>
+            <td>-</td>
+            <td>1TB</td>
+            <td>静态资源存储</td>
+        </tr>
+        <tr>
+            <td>网络带宽</td>
+            <td>-</td>
+            <td>50Mbps</td>
+            <td>对外服务</td>
+        </tr>
+    </table>
+    
+    <h3>8.2 扩展策略</h3>
+    <p>随用户增长的扩展计划：</p>
+    <ul>
+        <li><strong>水平扩展</strong>：增加微服务实例数量</li>
+        <li><strong>纵向扩展</strong>：增加AI模型服务器配置</li>
+        <li><strong>数据库扩展</strong>：读写分离、分库分表</li>
+        <li><strong>缓存扩展</strong>：增加Redis集群节点数量</li>
+        <li><strong>CDN扩展</strong>：增加CDN节点覆盖</li>
+    </ul>
+    
+    <div class="warning">
+        <p><strong>关键扩展节点：</strong></p>
+        <ul>
+            <li>10万用户：当前架构满足需求</li>
+            <li>50万用户：增加模型服务器数量，拆分知识库</li>
+            <li>100万用户：引入数据库分片，扩展消息队列集群</li>
+            <li>500万用户：考虑多区域部署，提升全球访问体验</li>
+        </ul>
+    </div>
+</body>
+</html> 
